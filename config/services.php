@@ -30,4 +30,21 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'google' => [
+        'client_id' => env('GOOGLE_CLIENT_ID', ''),
+        'client_secret' => env('GOOGLE_CLIENT_SECRET', ''),
+        'redirect' => 'http://socialitest.co:8000/login/google/callback',
+    ],
+
+    'facebook' => [
+        'client_id' => env('FACEBOOK_CLIENT_ID', ''),
+        'client_secret' => env('FACEBOOK_CLIENT_SECRET', ''),
+        'redirect' => 'http://socialitest.co:8000/login/facebook/callback', //facebook requires https
+    ],
+
+    'linkedin' => [
+        'client_id' => env('LINKEDIN_CLIENT_ID', ''),
+        'client_secret' => env('LINKEDIN_CLIENT_SECRET', ''),
+        'redirect' => 'http://socialitest.co:8000/login/linkedin/callback',
+    ]
 ];
