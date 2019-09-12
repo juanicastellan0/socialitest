@@ -1,0 +1,62 @@
+run.config:
+  # install php and associated runtimes
+  engine: php
+
+  # php engine configuration (php version, extensions, etc)
+  engine.config:
+
+    # sets the php version to 7.0
+    runtime: php-7.2
+
+    # use nginx
+    webserver: nginx
+
+    # public directory
+    document_root: public
+
+    # enables php extensions
+    extensions:
+      - pdo
+      - pdo_mysql
+      - mbstring
+      - tokenizer
+      - session
+      - zip
+      - dom
+      - xml
+      - ctype
+      - fileinfo
+      - xmlwriter
+
+#
+deploy.config:
+  before_live:
+    web.main:
+      - php artisan migrate --force
+      - mkdir -p storage/framework/{sessions,cache,views}
+
+# add a MySQL database
+data.db:
+  image: nanobox/mysql:5.6
+
+# add a local storage database
+data.storage:
+  image: nanobox/unfs:0.9
+
+# add a web server
+web.main:
+  start: php-server
+
+  # add writable dirs to your web component
+  writable_dirs:
+    - bootstrap/cache
+
+  # the path to a logfile you want streamed to the nanobox dashboard
+  log_watch:
+    laravel[error]: /app/storage/logs/laravel.log
+
+  # directories to be stored in the data.storage component
+  network_dirs:
+    data.storage:
+      - storage
+
